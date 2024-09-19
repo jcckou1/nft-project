@@ -1,0 +1,3 @@
+[submodule "foundry-linea-nft-meself/lib/forge-std"]
+	path = foundry-linea-nft-meself/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
