@@ -1,3 +1,6 @@
 [submodule "foundry-linea-nft-meself/lib/forge-std"]
 	path = foundry-linea-nft-meself/lib/forge-std
 	url = https://github.com/foundry-rs/forge-std
+[submodule "foundry-linea-nft-meself/lib/openzeppelin-contracts"]
+	path = foundry-linea-nft-meself/lib/openzeppelin-contracts
+	url = https://github.com/OpenZeppelin/openzeppelin-contracts
