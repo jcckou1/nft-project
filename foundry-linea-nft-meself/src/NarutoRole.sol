@@ -6,11 +6,20 @@ import {ERC721} from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
-//TODO:制造代币给用户，触发事件给后端
+/**
+ * @title NarutoRole
+ * @author xiongren
+ * @notice 创建角色合约 可直接set tokenURI用于更换角色 可直接mint
+ */
 contract NarutoRole is ERC721, Ownable {
     error NarutoRole_ERC721Metadata__URI_QueryFor_NonExistentToken();
 
-    event NFTMinted(address to, uint256 projectId, uint256 tokenId);
+    event NFTMinted(
+        address from,
+        address to,
+        uint256 projectId,
+        uint256 tokenId
+    );
 
     enum Role {
         Sasuke_Uchiha,
@@ -91,12 +100,13 @@ contract NarutoRole is ERC721, Ownable {
             );
     }
 
-    function mint(Role role) external payable {
+    //mint角色代表向他投票
+    function mint(Role role, address to) external payable {
         require(msg.value >= 0.0001 ether, "Insufficient funds for minting");
 
-        _safeMint(msg.sender, s_tokenCounter);
+        _safeMint(to, s_tokenCounter);
         s_tokenIdToRole[s_tokenCounter] = role;
-        emit NFTMinted(msg.sender, s_projectId, s_tokenCounter);
+        emit NFTMinted(msg.sender, to, s_projectId, s_tokenCounter);
         s_tokenCounter++;
     }
 

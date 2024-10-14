@@ -4,6 +4,11 @@ pragma solidity ^0.8.20;
 
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
+/**
+ * @title SignatureVerifier
+ * @author xiongren
+ * @notice 签名验证合约 用于验证后端的签名
+ */
 contract SignatureVerifier is Ownable {
     address s_corectSigner;
 

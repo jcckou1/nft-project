@@ -5,9 +5,16 @@ import {IERC20} from "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {SignatureVerifier} from "./SignatureVerifier.sol";
 
+/**
+ * @title TransferToken
+ * @author xiongren
+ * @notice 转账合约 用于给用户发送平台ERC20代币
+ */
 contract TransferToken is Ownable {
     IERC20 private token; //ERC20代币接口
     SignatureVerifier private verifier; //验证合约
+
+    event transfered(address from, address to, uint256 amount);
 
     constructor(
         address tokenAddress,
@@ -28,6 +35,7 @@ contract TransferToken is Ownable {
         );
         require(messageTo != address(0), "Invalid address");
         require(token.transfer(messageTo, amount), "Transfer falied");
+        emit transfered(msg.sender, messageTo, amount);
     }
 
     function updateVerifier(address newVerifier) external onlyOwner {
